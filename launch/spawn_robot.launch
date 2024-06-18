@@ -1,0 +1,21 @@
+<launch>
+    <!-- Launch Gazebo with an empty world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch" />
+
+    <!-- Spawn the robot -->
+    <param name="robot_description" command="cat $(find urdf_simulate)/urdf/my_robot.urdf" />
+
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+        args="-param robot_description -urdf -model my_robot" />
+
+    <!-- Load joint state controller -->
+    <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
+
+    <!-- Start joint state controller -->
+    <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/my_robot" args="joint_state_controller" />
+
+    <!-- Start differential drive controller -->
+    <node name="diff_controller" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/my_robot" args="diff_drive_controller" />
+</launch>

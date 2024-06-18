@@ -1,0 +1,20 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+diff_drive_controller:
+  type: "diff_drive_controller/DiffDriveController"
+  left_wheel: ['joint_wheel_bl', 'joint_wheel_fl']
+  right_wheel: ['joint_wheel_br', 'joint_wheel_fr']
+  publish_rate: 50
+  pose_covariance_diagonal: [0.001, 0.001, 0.001, 0.0, 0.0, 0.001]
+  twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.0, 0.0, 0.001]
+  wheel_separation: 0.3
+  wheel_radius: 0.076
+  cmd_vel_timeout: 0.25
+  enable_odom_tf: true
+  odom_frame_id: odom
+  base_frame_id: base_link
+  publish_cmd: true
+  publish_cmd_topic: ~cmd_vel
+  velocity_rolling_window_size: 10
