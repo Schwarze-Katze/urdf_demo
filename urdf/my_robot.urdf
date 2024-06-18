@@ -12,13 +12,13 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="0.3 0.3 0.1"/>
+        <box size="0.4 0.5 0.1"/>
       </geometry>
       <material name="gray"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.3 0.3 0.1"/>
+        <box size="0.4 0.5 0.1"/>
       </geometry>
     </collision>
     <inertial>
@@ -104,7 +104,7 @@
   <joint name="joint_wheel_fl" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_fl"/>
-    <origin rpy="0 1.570796326795 0" xyz="0.15 0.15 -0.05"/>
+    <origin rpy="0 -1.570796326795 0" xyz="-0.2 0.174 -0.05"/>
     <!--
         Place wheel at the front-left corner -->
     <axis xyz="0 0 1"/>
@@ -112,7 +112,7 @@
   <joint name="joint_wheel_fr" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_fr"/>
-    <origin rpy="0 1.570796326795 0" xyz="0.15 -0.15 -0.05"/>
+    <origin rpy="0 -1.570796326795 0" xyz="0.2 0.174 -0.05"/>
     <!--
         Place wheel at the front-right corner -->
     <axis xyz="0 0 1"/>
@@ -120,7 +120,7 @@
   <joint name="joint_wheel_bl" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_bl"/>
-    <origin rpy="0 1.570796326795 0" xyz="-0.15 0.15 -0.05"/>
+    <origin rpy="0 -1.570796326795 0" xyz="-0.2 -0.174 -0.05"/>
     <!--
         Place wheel at the back-left corner -->
     <axis xyz="0 0 1"/>
@@ -128,7 +128,7 @@
   <joint name="joint_wheel_br" type="continuous">
     <parent link="base_link"/>
     <child link="wheel_br"/>
-    <origin rpy="0 1.570796326795 0" xyz="-0.15 -0.15 -0.05"/>
+    <origin rpy="0 -1.570796326795 0" xyz="0.2 -0.174 -0.05"/>
     <!-- Place wheel at the back-right corner -->
     <axis xyz="0 0 1"/>
   </joint>
@@ -162,13 +162,13 @@
   <link name="body_top">
     <visual>
       <geometry>
-        <box size="0.3 0.3 0.2"/>
+        <box size="0.4 0.5 0.2"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.3 0.3 0.2"/>
+        <box size="0.4 0.5 0.2"/>
       </geometry>
     </collision>
     <inertial>
@@ -237,9 +237,9 @@
       <leftJoint>joint_wheel_fl</leftJoint>
       <rightJoint>joint_wheel_br</rightJoint>
       <rightJoint>joint_wheel_fr</rightJoint>
-      <wheelSeparation>0.3</wheelSeparation>
+      <wheelSeparation>0.4</wheelSeparation>
       <wheelDiameter>0.152</wheelDiameter>
-      <torque>5.0</torque>
+      <torque>0.5</torque>
     </plugin>
   </gazebo>
 </robot>

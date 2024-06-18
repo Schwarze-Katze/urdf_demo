@@ -2,8 +2,8 @@
     <xacro:property name="PI" value="3.14159265359" />
 
     <!-- Parameters -->
-    <xacro:property name="chassis_length" value="0.3" /> <!-- 30 cm -->
-    <xacro:property name="chassis_width" value="0.3" />  <!-- 30 cm -->
+    <xacro:property name="chassis_length" value="0.5" /> <!-- 50 cm -->
+    <xacro:property name="chassis_width" value="0.4" />  <!-- 40 cm -->
     <xacro:property name="chassis_height" value="0.1" /> <!-- 10 cm -->
 
     <xacro:property name="wheel_diameter" value="0.152" /> <!-- 15.2 cm -->
@@ -14,21 +14,21 @@
     <xacro:property name="telescopic_rod_max_length" value="0.3" /> <!-- 30 cm -->
     <xacro:property name="telescopic_rod_radius" value="0.02" /> <!-- 2 cm -->
 
-    <xacro:property name="body_top_length" value="0.3" /> <!-- 30 cm -->
-    <xacro:property name="body_top_width" value="0.3" />  <!-- 30 cm -->
+    <xacro:property name="body_top_length" value="0.5" /> <!-- 30 cm -->
+    <xacro:property name="body_top_width" value="0.4" />  <!-- 30 cm -->
     <xacro:property name="body_top_height" value="0.2" /> <!-- 20 cm -->
 
     <!-- Base Link -->
     <link name="base_link">
         <visual>
             <geometry>
-                <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+                <box size="${chassis_width} ${chassis_length} ${chassis_height}" />
             </geometry>
             <material name="gray" />
         </visual>
         <collision>
             <geometry>
-                <box size="${chassis_length} ${chassis_width} ${chassis_height}" />
+                <box size="${chassis_width} ${chassis_length} ${chassis_height}" />
             </geometry>
         </collision>
         <inertial>
@@ -119,7 +119,8 @@
     <joint name="joint_wheel_fl" type="continuous">
         <parent link="base_link" />
         <child link="wheel_fl" />
-        <origin xyz="${chassis_length/2} ${chassis_width/2} -${chassis_height/2}" rpy="0 ${PI/2} 0" /> <!--
+        <origin xyz="${-chassis_width/2} ${chassis_length/2-wheel_radius} -${chassis_height/2}"
+            rpy="0 ${-PI/2} 0" /> <!--
         Place wheel at the front-left corner -->
         <axis xyz="0 0 1" />
     </joint>
@@ -127,7 +128,8 @@
     <joint name="joint_wheel_fr" type="continuous">
         <parent link="base_link" />
         <child link="wheel_fr" />
-        <origin xyz="${chassis_length/2} -${chassis_width/2} -${chassis_height/2}" rpy="0 ${PI/2} 0" /> <!--
+        <origin xyz="${chassis_width/2} ${chassis_length/2-wheel_radius} -${chassis_height/2}"
+            rpy="0 ${-PI/2} 0" /> <!--
         Place wheel at the front-right corner -->
         <axis xyz="0 0 1" />
     </joint>
@@ -135,7 +137,8 @@
     <joint name="joint_wheel_bl" type="continuous">
         <parent link="base_link" />
         <child link="wheel_bl" />
-        <origin xyz="-${chassis_length/2} ${chassis_width/2} -${chassis_height/2}" rpy="0 ${PI/2} 0" /> <!--
+        <origin xyz="${-chassis_width/2} -${chassis_length/2-wheel_radius} -${chassis_height/2}"
+            rpy="0 ${-PI/2} 0" /> <!--
         Place wheel at the back-left corner -->
         <axis xyz="0 0 1" />
     </joint>
@@ -143,8 +146,8 @@
     <joint name="joint_wheel_br" type="continuous">
         <parent link="base_link" />
         <child link="wheel_br" />
-        <origin xyz="-${chassis_length/2} -${chassis_width/2} -${chassis_height/2}"
-            rpy="0 ${PI/2} 0" /> <!-- Place wheel at the back-right corner -->
+        <origin xyz="${chassis_width/2} -${chassis_length/2-wheel_radius} -${chassis_height/2}"
+            rpy="0 ${-PI/2} 0" /> <!-- Place wheel at the back-right corner -->
         <axis xyz="0 0 1" />
     </joint>
 
@@ -179,13 +182,13 @@
     <link name="body_top">
         <visual>
             <geometry>
-                <box size="${body_top_length} ${body_top_width} ${body_top_height}" />
+                <box size="${body_top_width} ${body_top_length} ${body_top_height}" />
             </geometry>
             <material name="blue" />
         </visual>
         <collision>
             <geometry>
-                <box size="${body_top_length} ${body_top_width} ${body_top_height}" />
+                <box size="${body_top_width} ${body_top_length} ${body_top_height}" />
             </geometry>
         </collision>
         <inertial>
@@ -260,9 +263,9 @@
             <leftJoint>joint_wheel_fl</leftJoint>
             <rightJoint>joint_wheel_br</rightJoint>
             <rightJoint>joint_wheel_fr</rightJoint>
-            <wheelSeparation>0.3</wheelSeparation>
-            <wheelDiameter>0.152</wheelDiameter>
-            <torque>5.0</torque>
+            <wheelSeparation>${chassis_width}</wheelSeparation>
+            <wheelDiameter>${wheel_diameter}</wheelDiameter>
+            <torque>0.5</torque>
         </plugin>
     </gazebo>
 </robot>
