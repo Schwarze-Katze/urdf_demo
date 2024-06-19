@@ -1,0 +1,15 @@
+<launch>
+    <!-- Load the robot description from xacro file -->
+    <param name="robot_description"
+        command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/my_robot.xacro'" />
+
+    <!-- Start joint state publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <!-- Start robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Start RViz -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_simulate)/rviz/urdf_simulate.rviz"
+        required="true" />
+</launch>

@@ -6,19 +6,32 @@
 <robot name="four_wheeled_robot">
   <!-- 10 cm -->
   <!-- 2 cm -->
+  <!-- 15.2 cm -->
   <!-- 2 cm -->
   <!-- 20 cm -->
+  <link name="base_footprint">
+    <visual>
+      <geometry>
+        <sphere radius="0.001"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="base_link_footprint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.081"/>
+  </joint>
   <!-- Base Link -->
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="0.4 0.5 0.1"/>
+        <box size="0.4 0.1 0.01"/>
       </geometry>
       <material name="gray"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.4 0.5 0.1"/>
+        <box size="0.4 0.1 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -28,7 +41,7 @@
     </inertial>
   </link>
   <!-- Four Wheels -->
-  <link name="wheel_fl">
+  <link name="wheel_left">
     <visual>
       <geometry>
         <cylinder length="0.02" radius="0.076"/>
@@ -46,43 +59,7 @@
       <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
     </inertial>
   </link>
-  <link name="wheel_fr">
-    <visual>
-      <geometry>
-        <cylinder length="0.02" radius="0.076"/>
-      </geometry>
-      <material name="black"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.02" radius="0.076"/>
-      </geometry>
-    </collision>
-    <inertial>
-      <mass value="1.0"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
-    </inertial>
-  </link>
-  <link name="wheel_bl">
-    <visual>
-      <geometry>
-        <cylinder length="0.02" radius="0.076"/>
-      </geometry>
-      <material name="black"/>
-    </visual>
-    <collision>
-      <geometry>
-        <cylinder length="0.02" radius="0.076"/>
-      </geometry>
-    </collision>
-    <inertial>
-      <mass value="1.0"/>
-      <origin xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
-    </inertial>
-  </link>
-  <link name="wheel_br">
+  <link name="wheel_right">
     <visual>
       <geometry>
         <cylinder length="0.02" radius="0.076"/>
@@ -101,48 +78,77 @@
     </inertial>
   </link>
   <!-- Joints for Wheels -->
-  <joint name="joint_wheel_fl" type="continuous">
+  <joint name="joint_wheel_left" type="continuous">
     <parent link="base_link"/>
-    <child link="wheel_fl"/>
-    <origin rpy="0 -1.570796326795 0" xyz="-0.2 0.174 -0.05"/>
-    <!--
-        Place wheel at the front-left corner -->
+    <child link="wheel_left"/>
+    <origin rpy="0 -1.570796326795 0" xyz="-0.2 0 -0.005"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <joint name="joint_wheel_fr" type="continuous">
+  <joint name="joint_wheel_right" type="continuous">
     <parent link="base_link"/>
-    <child link="wheel_fr"/>
-    <origin rpy="0 -1.570796326795 0" xyz="0.2 0.174 -0.05"/>
-    <!--
-        Place wheel at the front-right corner -->
+    <child link="wheel_right"/>
+    <origin rpy="0 -1.570796326795 0" xyz="0.2 0 -0.005"/>
     <axis xyz="0 0 1"/>
   </joint>
-  <joint name="joint_wheel_bl" type="continuous">
+  <link name="caster_forward">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision>
+    <!-- <inertial>
+            <mass value="0.5" />
+            <inertia ixx="3.000e-4" iyy="3.000e-4" izz="3.000e-4" ixy="0" ixz="0" iyz="0" />
+        </inertial> -->
+  </link>
+  <link name="caster_backward">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="green"/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision>
+    <!-- <inertial>
+            <mass value="0.5" />
+            <inertia ixx="3.000e-4" iyy="3.000e-4" izz="3.000e-4" ixy="0" ixz="0" iyz="0" />
+        </inertial> -->
+  </link>
+  <joint name="caster_forward_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0.020000000000000004 -0.05"/>
     <parent link="base_link"/>
-    <child link="wheel_bl"/>
-    <origin rpy="0 -1.570796326795 0" xyz="-0.2 -0.174 -0.05"/>
-    <!--
-        Place wheel at the back-left corner -->
-    <axis xyz="0 0 1"/>
+    <child link="caster_forward"/>
   </joint>
-  <joint name="joint_wheel_br" type="continuous">
+  <joint name="caster_backward_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 -0.020000000000000004 -0.05"/>
     <parent link="base_link"/>
-    <child link="wheel_br"/>
-    <origin rpy="0 -1.570796326795 0" xyz="0.2 -0.174 -0.05"/>
-    <!-- Place wheel at the back-right corner -->
-    <axis xyz="0 0 1"/>
+    <child link="caster_backward"/>
   </joint>
   <!-- Telescopic Rod -->
   <link name="telescopic_rod">
     <visual>
       <geometry>
-        <cylinder length="0.3" radius="0.02"/>
+        <cylinder length="0.3" radius="0.03"/>
       </geometry>
       <material name="silver"/>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="0.3" radius="0.02"/>
+        <cylinder length="0.3" radius="0.03"/>
       </geometry>
     </collision>
     <inertial>
@@ -155,20 +161,20 @@
   <joint name="joint_telescopic_rod" type="fixed">
     <parent link="base_link"/>
     <child link="telescopic_rod"/>
-    <origin xyz="0 0 0.2"/>
+    <origin xyz="0 0 0.155"/>
     <!-- Attach rod to the top of the base -->
   </joint>
   <!-- Body Link on Top of Telescopic Rod -->
   <link name="body_top">
     <visual>
       <geometry>
-        <box size="0.4 0.5 0.2"/>
+        <box size="0.4 0.4 0.2"/>
       </geometry>
       <material name="blue"/>
     </visual>
     <collision>
       <geometry>
-        <box size="0.4 0.5 0.2"/>
+        <box size="0.4 0.4 0.2"/>
       </geometry>
     </collision>
     <inertial>
@@ -188,40 +194,40 @@
     <limit effort="10.0" lower="0" upper="0.19999999999999998" velocity="0.05"/>
     <!-- 10 cm to 30 cm -->
   </joint>
+  <link name="body_top_semantic">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="joint_body_top_semantic" type="fixed">
+    <parent link="body_top"/>
+    <child link="body_top_semantic"/>
+    <origin xyz="0 0.15000000000000002 0.1"/>
+  </joint>
   <!-- Transmission for the wheels -->
-  <transmission name="trans_wheel_fl">
+  <transmission name="trans_wheel_left">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_wheel_fl">
+    <joint name="joint_wheel_left">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="actuator_wheel_fl">
+    <actuator name="actuator_wheel_left">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="trans_wheel_fr">
+  <transmission name="trans_wheel_right">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_wheel_fr">
+    <joint name="joint_wheel_right">
       <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
     </joint>
-    <actuator name="actuator_wheel_fr">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="trans_wheel_bl">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_wheel_bl">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="actuator_wheel_bl">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-  <transmission name="trans_wheel_br">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_wheel_br">
-      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-    </joint>
-    <actuator name="actuator_wheel_br">
+    <actuator name="actuator_wheel_right">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
@@ -233,14 +239,16 @@
         <remapping>cmd_vel:=cmd_vel</remapping>
       </ros>
       <updateRate>50</updateRate>
-      <leftJoint>joint_wheel_bl</leftJoint>
-      <leftJoint>joint_wheel_fl</leftJoint>
-      <rightJoint>joint_wheel_br</rightJoint>
-      <rightJoint>joint_wheel_fr</rightJoint>
+      <leftJoint>joint_wheel_left</leftJoint>
+      <rightJoint>joint_wheel_right</rightJoint>
       <wheelSeparation>0.4</wheelSeparation>
       <wheelDiameter>0.152</wheelDiameter>
-      <torque>0.5</torque>
+      <torque>5</torque>
     </plugin>
+  </gazebo>
+  <gazebo reference="caster_link">
+    <mu1 value="0.0"/>
+    <mu2 value="0.0"/>
   </gazebo>
 </robot>
 
