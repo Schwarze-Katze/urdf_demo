@@ -11,7 +11,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
-  robot_state_publisher
+  controller_interface
+  joint_state_controller
+  position_controllers
+  ros_control
+  ros_controllers
 )
 
 ## System dependencies are found with CMake's conventions

@@ -1,10 +1,11 @@
-<robot name="four_wheeled_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:property name="PI" value="3.14159265359" />
+    <xacro:property name="namespace" value="robot" />
 
     <!-- Parameters -->
     <xacro:property name="chassis_length" value="0.1" /> <!-- 50 cm -->
     <xacro:property name="chassis_width" value="0.4" />  <!-- 40 cm -->
-    <xacro:property name="chassis_height" value="0.01" /> <!-- 10 cm -->
+    <xacro:property name="chassis_height" value="0.01" /> <!-- 1 cm -->
 
     <xacro:property name="wheel_diameter" value="0.152" /> <!-- 15.2 cm -->
     <xacro:property name="wheel_radius" value="${wheel_diameter / 2}" />
@@ -12,41 +13,27 @@
 
     <xacro:property name="caster_radius" value="0.03" /> <!-- 15.2 cm -->
 
-    <xacro:property name="telescopic_rod_min_length" value="0.1" /> <!-- 10 cm -->
-    <xacro:property name="telescopic_rod_max_length" value="0.3" /> <!-- 30 cm -->
-    <xacro:property name="telescopic_rod_radius" value="0.03" /> <!-- 2 cm -->
+    <xacro:property name="min_lift_height" value="0.1" /> <!-- 10 cm -->
+    <xacro:property name="max_lift_height" value="0.3" /> <!-- 30 cm -->
+    <!-- <xacro:property name="telescopic_rod_radius" value="0.03" /> -->
 
     <xacro:property name="body_top_length" value="0.4" /> <!-- 30 cm -->
     <xacro:property name="body_top_width" value="0.4" />  <!-- 30 cm -->
     <xacro:property name="body_top_height" value="0.2" /> <!-- 20 cm -->
 
-    <!-- <link name="base_footprint">
-        <visual>
-            <geometry>
-                <sphere radius="0.001" />
-            </geometry>
-        </visual>
-    </link>
-
-    <joint name="base_link_footprint" type="fixed">
-        <parent link="base_footprint" />
-        <child link="base_link" />
-        <origin xyz="0 0 ${chassis_height/2+wheel_radius}" />
-    </joint> -->
-
     <!-- Base Link -->
     <link name="base_link">
-        <visual>
+        <!-- <visual>
             <geometry>
                 <box size="${chassis_width} ${chassis_length} ${chassis_height}" />
             </geometry>
             <material name="gray" />
-        </visual>
-        <collision>
+        </visual> -->
+        <!-- <collision>
             <geometry>
                 <box size="${chassis_width} ${chassis_length} ${chassis_height}" />
             </geometry>
-        </collision>
+        </collision> -->
         <inertial>
             <mass value="10.0" />
             <origin xyz="0 0 0" />
@@ -167,16 +154,16 @@
     </joint>
 
     <!-- Telescopic Rod -->
-    <link name="telescopic_rod">
+    <!-- <link name="telescopic_rod">
         <visual>
             <geometry>
-                <cylinder radius="${telescopic_rod_radius}" length="${telescopic_rod_max_length}" />
+                <cylinder radius="${telescopic_rod_radius}" length="${max_lift_height}" />
             </geometry>
             <material name="silver" />
         </visual>
         <collision>
             <geometry>
-                <cylinder radius="${telescopic_rod_radius}" length="${telescopic_rod_max_length}" />
+                <cylinder radius="${telescopic_rod_radius}" length="${max_lift_height}" />
             </geometry>
         </collision>
         <inertial>
@@ -184,14 +171,14 @@
             <origin xyz="0 0 0" />
             <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001" />
         </inertial>
-    </link>
+    </link> -->
 
     <!-- Joint for Telescopic Rod -->
-    <joint name="joint_telescopic_rod" type="fixed">
+    <!-- <joint name="joint_telescopic_rod" type="fixed">
         <parent link="base_link" />
         <child link="telescopic_rod" />
-        <origin xyz="0 0 ${(chassis_height+telescopic_rod_max_length)/2}" /> <!-- Attach rod to the top of the base -->
-    </joint>
+        <origin xyz="0 0 ${(chassis_height+max_lift_height)/2}" />
+    </joint> -->
 
     <!-- Body Link on Top of Telescopic Rod -->
     <link name="body_top">
@@ -214,14 +201,15 @@
     </link>
 
     <!-- Joint for Body Top -->
+    <xacro:property name="lift_origin"
+        value="${body_top_height / 2}" />
     <joint name="joint_body_top" type="prismatic">
-        <parent link="telescopic_rod" />
+        <parent link="base_link" />
         <child link="body_top" />
         <origin
-            xyz="0 0 ${(telescopic_rod_max_length + body_top_height) / 2-(telescopic_rod_max_length-telescopic_rod_min_length)}" /> <!-- Attach body to
-        the top of the rod -->
+            xyz="0 0 ${lift_origin}" />
         <axis xyz="0 0 1" />
-        <limit lower="0" upper="${telescopic_rod_max_length-telescopic_rod_min_length}"
+        <limit lower="${min_lift_height}" upper="${max_lift_height}"
             effort="10.0" velocity="0.05" /> <!-- 10 cm to 30 cm -->
     </joint>
 
@@ -250,7 +238,7 @@
     <transmission name="trans_wheel_left">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="joint_wheel_left">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="actuator_wheel_left">
             <mechanicalReduction>1</mechanicalReduction>
@@ -260,9 +248,19 @@
     <transmission name="trans_wheel_right">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="joint_wheel_right">
-            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            <hardwareInterface>VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="actuator_wheel_right">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="trans_body_top">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_body_top">
+            <hardwareInterface>PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="actuator_body_top">
             <mechanicalReduction>1</mechanicalReduction>
         </actuator>
     </transmission>
@@ -271,7 +269,7 @@
     <gazebo>
         <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
             <ros>
-                <namespace>/my_robot</namespace>
+                <namespace>/${namespace}</namespace>
                 <remapping>cmd_vel:=cmd_vel</remapping>
             </ros>
             <updateRate>50</updateRate>

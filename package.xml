@@ -58,7 +58,11 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-
+  <depend>controller_interface</depend>
+  <depend>joint_state_controller</depend>
+  <depend>position_controllers</depend>
+  <depend>ros_control</depend>
+  <depend>ros_controllers</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
