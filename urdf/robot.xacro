@@ -210,7 +210,7 @@
             xyz="0 0 ${lift_origin}" />
         <axis xyz="0 0 1" />
         <limit lower="${min_lift_height}" upper="${max_lift_height}"
-            effort="10.0" velocity="0.05" /> <!-- 10 cm to 30 cm -->
+            effort="1.0" velocity="0.1" /> <!-- 10 cm to 30 cm -->
     </joint>
 
     <link name="body_top_semantic">
@@ -266,7 +266,7 @@
     </transmission>
 
     <!-- Gazebo plugin for drive control -->
-    <gazebo>
+    <!-- <gazebo>
         <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
             <robotNamespace>/${namespace}</robotNamespace>
             <robotBaseFrame>base_link</robotBaseFrame>
@@ -277,13 +277,10 @@
             <wheelDiameter>${wheel_diameter}</wheelDiameter>
             <torque>5</torque>
         </plugin>
-    </gazebo>
-    <!-- <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-        </plugin>
     </gazebo> -->
     <gazebo>
-        <plugin name="joint_control" filename="libjoint_state_controller.so">
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/${namespace}</robotNamespace>
         </plugin>
     </gazebo>
 

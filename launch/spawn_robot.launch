@@ -2,21 +2,34 @@
     <!-- Launch Gazebo with an empty world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch" />
 
+    <arg name="namespace" default="robot"/>
+
     <!-- Spawn the robot -->
     <param name="robot_description"
         command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/robot.xacro'" />
+
+    <!-- Load joint state controller -->
+    <!-- <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" /> -->
 
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
         args="-param robot_description -urdf -model robot" />
 
     <!-- Start robot state publisher -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="robot">
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        ns="$(arg namespace)">
         <param name="publish_frequency" type="double" value="20.0" />
-        <remap from="/joint_states" to="/robot/joint_states" />
+        <remap from="/joint_states" to="/$(arg namespace)/joint_states" />
     </node>
 
     <!-- Start joint state publisher -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
+    <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
+
+    <!-- Start joint state controller -->
+    <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
+        ns="$(arg namespace)"
+        output="screen"
+        args="diff_drive_controller lift_controller" />
 
 </launch>
