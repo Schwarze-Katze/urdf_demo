@@ -10,21 +10,13 @@
         args="-param robot_description -urdf -model robot" />
 
     <!-- Start robot state publisher -->
-    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="robot">
+        <param name="publish_frequency" type="double" value="20.0" />
+        <remap from="/joint_states" to="/robot/joint_states" />
+    </node>
 
     <!-- Start joint state publisher -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-    <!-- Load joint state controller -->
-    <rosparam command="load" ns="robot" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
-
-    <!-- Start joint state controller -->
-    <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
-        output="screen" ns="/robot"
-        args="joint_state_controller diff_drive_controller position_controller" />
-
-    <!-- Start differential drive controller -->
-    <!-- <node name="diff_controller" pkg="controller_manager" type="spawner" respawn="true"
-        output="screen" ns="/my_robot" args="diff_drive_controller" /> -->
 
 </launch>
