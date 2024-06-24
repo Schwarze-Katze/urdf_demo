@@ -1,6 +1,6 @@
 <robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:property name="PI" value="3.14159265359" />
-    <xacro:property name="namespace" value="robot" />
+    <xacro:arg name="ns" default="robot" />
 
     <!-- Parameters -->
     <xacro:property name="chassis_length" value="0.1" /> <!-- 50 cm -->
@@ -268,7 +268,7 @@
     <!-- Gazebo plugin for drive control -->
     <!-- <gazebo>
         <plugin name="gazebo_ros_diff_drive" filename="libgazebo_ros_diff_drive.so">
-            <robotNamespace>/${namespace}</robotNamespace>
+            <robotNamespace>/$(arg ns)</robotNamespace>
             <robotBaseFrame>base_link</robotBaseFrame>
             <updateRate>50</updateRate>
             <leftJoint>joint_wheel_left</leftJoint>
@@ -280,7 +280,7 @@
     </gazebo> -->
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-            <robotNamespace>/${namespace}</robotNamespace>
+            <robotNamespace>/$(arg ns)</robotNamespace>
         </plugin>
     </gazebo>
 
@@ -329,7 +329,7 @@
                 </noise>
             </ray>
             <plugin name="gazebo_ros_head_ydlidar_controller" filename="libgazebo_ros_gpu_laser.so">
-                <robotNamespace>/${namespace}</robotNamespace>
+                <robotNamespace>/$(arg ns)</robotNamespace>
                 <topicName>scan</topicName>
                 <frameName>body_top_semantic</frameName>
             </plugin>
