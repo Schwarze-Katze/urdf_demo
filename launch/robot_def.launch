@@ -1,0 +1,28 @@
+<launch>
+    <arg name="namespace" default="robot"/>
+    <arg name="x0" default="0" />
+    <arg name="y0" default="0" />
+    <arg name="z0" default="0" />
+
+    <group ns="$(arg namespace)">
+        <param name="robot_description"
+            command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/robot.xacro' ns:=$(arg namespace)" />
+
+        <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+            <param name="publish_frequency" type="double" value="50.0" />
+        </node>
+
+        <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false"
+            output="screen"
+            args="-urdf -model $(arg namespace) -param robot_description -x $(arg x0) -y $(arg y0) -z $(arg z0)" />
+
+        <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
+
+        <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
+            output="screen"
+            args="drive_controller lift_controller">
+        </node>
+    </group>
+</launch>

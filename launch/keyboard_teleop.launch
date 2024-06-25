@@ -1,8 +1,8 @@
 <launch>
-    <arg name="namespace" default="robot" />
+    <arg name="ns" default="robot" />
     <!-- Launch teleop_twist_keyboard -->
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"
-        ns="$(arg namespace)/diff_drive_controller"
+        ns="$(arg ns)/drive_controller"
         output="screen">
         <param name="speed" value="0.2" />
         <param name="turn" value="0.5" />
