@@ -21,23 +21,23 @@
         <arg name="namespace" value="robot1" />
         <arg name="x0" value="0" />
         <arg name="y0" value="0" />
-        <arg name="z0" value="0" />
+        <arg name="z0" value="0.4" />
     </include>
 
     <!-- Robot 2 -->
     <include file="$(find urdf_simulate)/launch/robot_def.launch">
         <arg name="namespace" value="robot2" />
-        <arg name="x0" value="1" />
-        <arg name="y0" value="0" />
-        <arg name="z0" value="0" />
+        <arg name="x0" value="0" />
+        <arg name="y0" value="1" />
+        <arg name="z0" value="0.4" />
     </include>
 
     <!-- Robot 3 -->
     <include file="$(find urdf_simulate)/launch/robot_def.launch">
         <arg name="namespace" value="robot3" />
-        <arg name="x0" value="-1" />
-        <arg name="y0" value="0" />
-        <arg name="z0" value="0" />
+        <arg name="x0" value="0" />
+        <arg name="y0" value="-1" />
+        <arg name="z0" value="0.4" />
     </include>
 
 </launch>

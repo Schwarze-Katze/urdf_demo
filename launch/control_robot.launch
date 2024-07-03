@@ -1,9 +1,0 @@
-<launch>
-    <!-- Load joint state controller -->
-    <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
-
-    <!-- Start joint state controller -->
-    <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true" ns="robot"
-        output="screen"
-        args="diff_drive_controller lift_controller" />
-</launch>

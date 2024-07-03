@@ -1,12 +1,14 @@
 <launch>
-    <arg name="namespace" default="robot"/>
+    <arg name="namespace" default="robot" />
     <arg name="x0" default="0" />
     <arg name="y0" default="0" />
     <arg name="z0" default="0" />
 
+
     <group ns="$(arg namespace)">
+
         <param name="robot_description"
-            command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/robot.xacro' ns:=$(arg namespace)" />
+            command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/sw.xacro' ns:=$(arg namespace)" />
 
         <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
@@ -20,9 +22,13 @@
 
         <rosparam command="load" file="$(find urdf_simulate)/config/joint_controllers.yaml" />
 
-        <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
+        <!-- <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
             output="screen"
             args="drive_controller lift_controller">
+        </node> -->
+        <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="true"
+            output="screen"
+            args="drive_controller">
         </node>
     </group>
 </launch>

@@ -1,0 +1,320 @@
+<sdf version='1.7'>
+  <model name='robot'>
+    <link name='base_link'>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>10</mass>
+        <inertia>
+          <ixx>1</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>1</iyy>
+          <iyz>0</iyz>
+          <izz>1</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_fixed_joint_lump__caster_backward_collision'>
+        <pose>0 -0.17 -0.051 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.03</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__caster_forward_collision_1'>
+        <pose>0 0.17 -0.051 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.03</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+    <joint name='joint_body_top' type='prismatic'>
+      <pose relative_to='base_link'>0 0 0.1 0 -0 0</pose>
+      <parent>base_link</parent>
+      <child>body_top</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>0.1</lower>
+          <upper>0.3</upper>
+          <effort>1</effort>
+          <velocity>0.1</velocity>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='body_top'>
+      <pose relative_to='joint_body_top'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>0.1</mass>
+        <inertia>
+          <ixx>0.02</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.02</iyy>
+          <iyz>0</iyz>
+          <izz>0.02</izz>
+        </inertia>
+      </inertial>
+      <collision name='body_top_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.4 0.4 0.2</size>
+          </box>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <collision name='body_top_semantic_collision_1'>
+        <pose>0 0.15 0.1 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.05</radius>
+          </sphere>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='body_top_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.4 0.4 0.2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkYellow</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <visual name='body_top_semantic_visual_1'>
+        <pose>0 0.15 0.1 0 -0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>0.05</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkYellow</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+      <sensor name='head_ydlidar_sensor' type='gpu_ray'>
+        <visualize>1</visualize>
+        <update_rate>50</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>700</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.12</min>
+            <max>8</max>
+            <resolution>0.72</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name='gazebo_ros_head_ydlidar_controller' filename='libgazebo_ros_gpu_laser.so'>
+          <robotNamespace>/robot</robotNamespace>
+          <topicName>scan</topicName>
+          <frameName>body_top_semantic</frameName>
+        </plugin>
+        <pose>0 0.15 0.1 0 -0 0</pose>
+      </sensor>
+    </link>
+    <joint name='joint_wheel_left' type='revolute'>
+      <pose relative_to='base_link'>-0.2 0 -0.005 0 -1.5708 0</pose>
+      <parent>base_link</parent>
+      <child>wheel_left</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel_left'>
+      <pose relative_to='joint_wheel_left'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.01</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.01</iyy>
+          <iyz>0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel_left_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.02</length>
+            <radius>0.076</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wheel_left_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.02</length>
+            <radius>0.076</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <joint name='joint_wheel_right' type='revolute'>
+      <pose relative_to='base_link'>0.2 0 -0.005 0 -1.5708 0</pose>
+      <parent>base_link</parent>
+      <child>wheel_right</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='wheel_right'>
+      <pose relative_to='joint_wheel_right'>0 0 0 0 -0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 -0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0.01</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.01</iyy>
+          <iyz>0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <collision name='wheel_right_collision'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.02</length>
+            <radius>0.076</radius>
+          </cylinder>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='wheel_right_visual'>
+        <pose>0 0 0 0 -0 0</pose>
+        <geometry>
+          <cylinder>
+            <length>0.02</length>
+            <radius>0.076</radius>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <name>Gazebo/DarkGrey</name>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+          </script>
+        </material>
+      </visual>
+    </link>
+    <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+      <robotNamespace>/robot</robotNamespace>
+    </plugin>
+    <frame name='caster_backward_joint' attached_to='base_link'>
+      <pose>0 -0.17 -0.051 0 -0 0</pose>
+    </frame>
+    <frame name='caster_backward' attached_to='caster_backward_joint'/>
+    <frame name='caster_forward_joint' attached_to='base_link'>
+      <pose>0 0.17 -0.051 0 -0 0</pose>
+    </frame>
+    <frame name='caster_forward' attached_to='caster_forward_joint'/>
+    <frame name='joint_body_top_semantic' attached_to='body_top'>
+      <pose>0 0.15 0.1 0 -0 0</pose>
+    </frame>
+    <frame name='body_top_semantic' attached_to='joint_body_top_semantic'/>
+  </model>
+</sdf>

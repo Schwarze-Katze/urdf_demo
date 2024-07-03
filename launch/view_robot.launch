@@ -1,7 +1,7 @@
 <launch>
     <!-- Load the robot description from xacro file -->
     <param name="robot_description"
-        command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/my_robot.xacro'" />
+        command="$(find xacro)/xacro '$(find urdf_simulate)/urdf/sw.xacro'" />
 
     <!-- Start joint state publisher -->
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
