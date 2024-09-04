@@ -4,7 +4,7 @@
 
     <!-- Parameters -->
     <xacro:property name="chassis_length" value="0.1" />
-    <xacro:property name="chassis_width" value="0.4" />
+    <xacro:property name="chassis_width" value="0.45" />
     <xacro:property name="chassis_height" value="0.01" />
 
     <xacro:property name="wheel_diameter" value="0.152" />
@@ -34,9 +34,9 @@
             </geometry>
         </collision> -->
         <inertial>
-            <mass value="10.0" />
+            <mass value="5" />
             <origin xyz="0 0 0" />
-            <inertia ixx="1" ixy="0.0" ixz="0.0" iyy="1" iyz="0.0" izz="1" />
+            <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.001" />
         </inertial>
     </link>
 
@@ -54,7 +54,7 @@
             </geometry>
         </collision>
         <inertial>
-            <mass value="1.0" />
+            <mass value="0.01" />
             <origin xyz="0 0 0" />
             <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01" />
         </inertial>
@@ -73,14 +73,14 @@
             </geometry>
         </collision>
         <inertial>
-            <mass value="1.0" />
+            <mass value="0.01" />
             <origin xyz="0 0 0" />
             <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01" />
         </inertial>
     </link>
 
     <!-- Joints for Wheels -->
-    <joint name="joint_wheel_left" type="continuous">
+    <joint name="joint_wheel_l" type="continuous">
         <parent link="base_link" />
         <child link="wheel_left" />
         <origin xyz="${-chassis_width/2} 0 -${chassis_height/2}"
@@ -88,7 +88,7 @@
         <axis xyz="0 0 1" />
     </joint>
 
-    <joint name="joint_wheel_right" type="continuous">
+    <joint name="joint_wheel_r" type="continuous">
         <parent link="base_link" />
         <child link="wheel_right" />
         <origin xyz="${chassis_width/2} 0 -${chassis_height/2}"
@@ -169,7 +169,7 @@
         <inertial>
             <mass value="0.1" />
             <origin xyz="0 0 0" />
-            <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.02" iyz="0.0" izz="0.02" />
+            <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002" />
         </inertial>
     </link>
 
@@ -210,7 +210,7 @@
     <!-- Transmission for the wheels -->
     <transmission name="trans_wheel_left">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_wheel_left">
+        <joint name="joint_wheel_l">
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="actuator_wheel_left">
@@ -220,7 +220,7 @@
 
     <transmission name="trans_wheel_right">
         <type>transmission_interface/SimpleTransmission</type>
-        <joint name="joint_wheel_right">
+        <joint name="joint_wheel_r">
             <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
         </joint>
         <actuator name="actuator_wheel_right">
@@ -259,7 +259,7 @@
     <gazebo reference="body_top">
         <material>Gazebo/DarkYellow </material>
     </gazebo>
-    <gazebo reference="body_top_semantic">
+    <!-- <gazebo reference="body_top_semantic">
         <sensor type="gpu_ray" name="head_ydlidar_sensor">
             <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
@@ -280,10 +280,6 @@
                 </range>
                 <noise>
                     <type>gaussian</type>
-                    <!-- Noise parameters based on published spec for Hokuyo laser
-               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
-               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
-               reading. -->
                     <mean>0.0</mean>
                     <stddev>0.01</stddev>
                 </noise>
@@ -295,7 +291,7 @@
             </plugin>
         </sensor>
         <material>Gazebo/FlatBlack</material>
-    </gazebo>
+    </gazebo> -->
 
     <gazebo reference="caster_forward">
         <mu1 value="0.0" />

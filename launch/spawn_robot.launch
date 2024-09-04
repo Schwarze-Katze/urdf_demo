@@ -1,10 +1,10 @@
 <launch>
-    <!-- <arg name="world_name" value="$(find ares_gazebo)/worlds/playground.world" /> -->
-    <arg name="paused" default="false" />
+    <!-- <arg name="world_name" value="$(find urdf_simulate)/worlds/test1.world" /> -->
+    <arg name="paused" default="true" />
     <arg name="use_sim_time" default="true" />
     <arg name="gui" default="true" />
     <arg name="headless" default="false" />
-    <arg name="debug" default="false" /> 
+    <arg name="debug" default="false" />
 
     <!-- Launch Gazebo with an empty world -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -28,7 +28,7 @@
     <include file="$(find urdf_simulate)/launch/robot_def.launch">
         <arg name="namespace" value="robot2" />
         <arg name="x0" value="0" />
-        <arg name="y0" value="1" />
+        <arg name="y0" value="-1" />
         <arg name="z0" value="0.4" />
     </include>
 
@@ -36,7 +36,7 @@
     <include file="$(find urdf_simulate)/launch/robot_def.launch">
         <arg name="namespace" value="robot3" />
         <arg name="x0" value="0" />
-        <arg name="y0" value="-1" />
+        <arg name="y0" value="1" />
         <arg name="z0" value="0.4" />
     </include>
 

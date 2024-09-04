@@ -2,7 +2,7 @@
     <arg name="ns" default="robot" />
     <!-- Launch teleop_twist_keyboard -->
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py"
-        ns="$(arg ns)/drive_controller"
+        ns="$(arg ns)"
         output="screen">
         <param name="speed" value="0.2" />
         <param name="turn" value="0.5" />

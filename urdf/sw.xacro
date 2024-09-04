@@ -28,7 +28,7 @@ Stephen Brawner (brawner@gmail.com)
   <xacro:property name="body_top_height" value="0.140" />
   <link
     name="base_link">
-    <inertial>
+    <!-- <inertial>
       <origin
         xyz="-0.0101783300438887 -8.63948981799645E-09 0.0390008530568618"
         rpy="0 0 0" />
@@ -41,6 +41,20 @@ Stephen Brawner (brawner@gmail.com)
         iyy="0.0868439733337961"
         iyz="1.26514888593879E-10"
         izz="0.142687618659048" />
+    </inertial> -->
+    <inertial>
+      <origin
+        xyz="-0.0101783300438887 -8.63948981799645E-09 0.0390008530568618"
+        rpy="0 0 0" />
+      <mass
+        value="0.678677551342344" />
+      <inertia
+        ixx="0.0710000990521389"
+        ixy="3.51370404321391E-09"
+        ixz="0.000957296781231614"
+        iyy="0.0868439733337961"
+        iyz="1.26514888593879E-10"
+        izz="0.000142687618659048" />
     </inertial>
     <visual>
       <origin
@@ -69,7 +83,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0.0569002619592844 0.022256442328326 -3.46944695195361E-18"
         rpy="0 0 0" />
       <mass
-        value="0.162466897479642" />
+        value="0.000162466897479642" />
       <inertia
         ixx="3.86909457658897E-05"
         ixy="-3.14607317451276E-05"
@@ -127,7 +141,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.142293835284382 0.0154549695933409 -0.103443136570321"
         rpy="0 0 0" />
       <mass
-        value="0.347077595551188" />
+        value="0.000347077595551188" />
       <inertia
         ixx="0.00107716081650825"
         ixy="0.000121336045655202"
@@ -238,7 +252,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.0711683948181995 0.00758058660928651 1.21430643318376E-17"
         rpy="0 0 0" />
       <mass
-        value="0.129894864847223" />
+        value="0.000129894864847223" />
       <inertia
         ixx="2.59618087625984E-05"
         ixy="7.30982349481323E-07"
@@ -296,7 +310,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0.115661076605591 0.00982868621876615 -0.0840819598352317"
         rpy="0 0 0" />
       <mass
-        value="0.24006664343355" />
+        value="0.00024006664343355" />
       <inertia
         ixx="0.000709486550862449"
         ixy="-6.73380406076644E-06"
@@ -351,10 +365,10 @@ Stephen Brawner (brawner@gmail.com)
     name="link_driven_lf">
     <inertial>
       <origin
-        xyz="0 0.00988036020187399 0"
+        xyz="0 0.000988036020187399 0"
         rpy="0 0 0" />
       <mass
-        value="0.026831378984772" />
+        value="0.00026831378984772" />
       <inertia
         ixx="4.30409377850185E-06"
         ixy="3.76310597444988E-23"
@@ -404,10 +418,10 @@ Stephen Brawner (brawner@gmail.com)
     name="link_driven_lb">
     <inertial>
       <origin
-        xyz="0 0.00988036020187399 0"
+        xyz="0 0.000988036020187399 0"
         rpy="0 0 0" />
       <mass
-        value="0.026831378984772" />
+        value="0.00026831378984772" />
       <inertia
         ixx="4.30409377850185E-06"
         ixy="3.76310597444988E-23"
@@ -460,7 +474,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0.0569002619592844 -0.0222564423283261 8.67361737988404E-18"
         rpy="0 0 0" />
       <mass
-        value="0.162466897479642" />
+        value="0.000162466897479642" />
       <inertia
         ixx="3.86909457658898E-05"
         ixy="3.14607317451277E-05"
@@ -518,7 +532,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.142293835284383 -0.0154549695933407 -0.103443136570321"
         rpy="0 0 0" />
       <mass
-        value="0.347077595551188" />
+        value="0.000347077595551188" />
       <inertia
         ixx="0.00107716081650825"
         ixy="-0.000121336045655203"
@@ -629,7 +643,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.0711683948181994 -0.00758058660928647 6.93889390390723E-18"
         rpy="0 0 0" />
       <mass
-        value="0.129894864847223" />
+        value="0.000129894864847223" />
       <inertia
         ixx="2.59618087625984E-05"
         ixy="-7.30982349481324E-07"
@@ -687,7 +701,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.115661076605591 -0.00982868621876613 0.0840819598352318"
         rpy="0 0 0" />
       <mass
-        value="0.240066643433549" />
+        value="0.000240066643433549" />
       <inertia
         ixx="0.000709486550862448"
         ixy="-6.73380406076642E-06"
@@ -745,7 +759,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0 -0.009880360201874 0"
         rpy="0 0 0" />
       <mass
-        value="0.026831378984772" />
+        value="0.000026831378984772" />
       <inertia
         ixx="4.30409377850185E-06"
         ixy="3.76310597444988E-23"
@@ -798,7 +812,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="1.38777878078145E-17 -0.009880360201874 0"
         rpy="0 0 0" />
       <mass
-        value="0.026831378984772" />
+        value="0.000026831378984772" />
       <inertia
         ixx="4.30409377850185E-06"
         ixy="3.76310597444988E-23"
@@ -851,7 +865,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-5.55111512312578E-17 1.38777878078145E-17 0.0219798785203744"
         rpy="0 0 0" />
       <mass
-        value="0.141168695994094" />
+        value="0.000141168695994094" />
       <inertia
         ixx="8.42336911882901E-05"
         ixy="4.92560402606528E-21"
@@ -909,7 +923,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.127740362351781 0.036245374218048 0.00213044981218816"
         rpy="0 0 0" />
       <mass
-        value="0.239903536199401" />
+        value="0.000239903536199401" />
       <inertia
         ixx="7.70561826554075E-05"
         ixy="4.41905722774107E-08"
@@ -967,7 +981,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0.128294239863031 0.0145 -1.38777878078145E-17"
         rpy="0 0 0" />
       <mass
-        value="0.157217277786466" />
+        value="0.000157217277786466" />
       <inertia
         ixx="1.93415806521528E-05"
         ixy="6.58902012539697E-20"
@@ -1025,7 +1039,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-2.77555756156289E-17 0 0.0219798785203744"
         rpy="0 0 0" />
       <mass
-        value="0.141168695994094" />
+        value="0.000141168695994094" />
       <inertia
         ixx="8.42336911882902E-05"
         ixy="4.24490717382806E-21"
@@ -1083,7 +1097,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="-0.127740362351781 0.036245374218048 0.00213044981218816"
         rpy="0 0 0" />
       <mass
-        value="0.239903536199401" />
+        value="0.000239903536199401" />
       <inertia
         ixx="7.70561826554075E-05"
         ixy="4.41905722776166E-08"
@@ -1141,7 +1155,7 @@ Stephen Brawner (brawner@gmail.com)
         xyz="0.128294239863031 0.0145 -4.16333634234434E-17"
         rpy="0 0 0" />
       <mass
-        value="0.157217277786466" />
+        value="0.000157217277786466" />
       <inertia
         ixx="1.93415806521528E-05"
         ixy="1.08079552812825E-19"
@@ -1205,7 +1219,7 @@ Stephen Brawner (brawner@gmail.com)
       </geometry>
     </collision>
     <inertial>
-      <mass value="0.1" />
+      <mass value="0.001" />
       <origin xyz="0 0 0" />
       <inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
     </inertial>
@@ -1269,7 +1283,7 @@ Stephen Brawner (brawner@gmail.com)
 
   <joint name="caster_forward_joint" type="fixed">
     <origin
-      xyz="${body_top_length/2-caster_radius} 0 ${-chassis_height/2-wheel_radius+caster_radius}"
+      xyz="${body_top_length/2-caster_radius} 0 ${-chassis_height/2-wheel_radius+caster_radius+0.0001}"
       rpy="0 0 0" />
     <parent link="chassis" />
     <child link="caster_forward" />
@@ -1277,7 +1291,7 @@ Stephen Brawner (brawner@gmail.com)
 
   <joint name="caster_backward_joint" type="fixed">
     <origin
-      xyz="${-body_top_length/2+caster_radius} 0 ${-chassis_height/2-wheel_radius+caster_radius}"
+      xyz="${-body_top_length/2+caster_radius} 0 ${-chassis_height/2-wheel_radius+caster_radius+0.0001}"
       rpy="0 0 0" />
     <parent link="chassis" />
     <child link="caster_backward" />
@@ -1327,4 +1341,22 @@ Stephen Brawner (brawner@gmail.com)
     <mu1 value="0.0" />
     <mu2 value="0.0" />
   </gazebo>
+  <gazebo reference="link_wheel_l">
+    <mu1 value="2.0" />
+    <mu2 value="2.0" />
+  </gazebo>
+  <gazebo reference="link_wheel_r">
+    <mu1 value="2.0" />
+    <mu2 value="2.0" />
+  </gazebo>
+
+  <!-- <xacro:include filename="$(find urdf_simulate)/urdf/livox_mid360.xacro" />
+  <xacro:Livox_Mid360 name="livox" />
+  <joint name="joint_livox" type="fixed">
+    <parent link="base_link" />
+    <child link="livox_base" />
+    <origin
+      xyz="0 0 ${body_top_height}" />
+    <axis xyz="0 0 1" />
+  </joint> -->
 </robot>

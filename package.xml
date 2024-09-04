@@ -61,13 +61,9 @@
   <build_depend>controller_interface</build_depend>
   <build_depend>joint_state_controller</build_depend>
   <build_depend>position_controllers</build_depend>
-  <build_depend>ros_control</build_depend>
-  <build_depend>ros_controllers</build_depend>
   <exec_depend>controller_interface</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>position_controllers</exec_depend>
-  <exec_depend>ros_control</exec_depend>
-  <exec_depend>ros_controllers</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
